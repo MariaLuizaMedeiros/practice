@@ -1,0 +1,323 @@
+---
+
+## Etapa 1 — Criar a pasta CSS e os arquivos de estilo
+
+**O que fazer:**
+- Criar uma pasta chamada `css` no projeto
+- Baixar o `normalize.css` (do link da prova) e colocar nessa pasta
+- Criar o arquivo `style.css` na mesma pasta
+- Linkar ambos nos HTMLs do projeto
+
+**Como fazer** (no `<head>` de cada página HTML):
+```html
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/style.css">
+```
+
+---
+
+## Etapa 2 — Definir as regras no style.css
+
+Copiar exatamente o CSS mostrado na prova:
+
+```css
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav a {
+    color: white;
+    margin: 0 1rem;
+    text-decoration: none;
+}
+
+.carrinho {
+    position: relative;
+    cursor: pointer;
+}
+
+.carrinho img {
+    width: 30px;
+    height: 30px;
+}
+
+#carrinho-contagem {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 10px;
+}
+
+.produtos {
+    display: flex;
+}
+
+.produto-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.produto-card img {
+    height: auto;
+    max-height: 120px;
+    object-fit: contain;
+}
+
+.produto-card h2 {
+    margin: 0.5rem 0;
+}
+
+.produto-card p {
+    margin: 0.5rem 0;
+}
+
+.produto-card button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.produto-card button:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+```
+
+---
+
+## Etapa 3 — Corrigir caminhos de imagens e JavaScript
+
+As imagens e o JS não carregam porque os caminhos no HTML estão errados. **Sem mover arquivos**, corrija os atributos `src` das `<img>` e o `src` do `<script>` para refletir onde os arquivos realmente estão.
+
+**Exemplo:** se a imagem está em `img/notebook.jpg`, o HTML deve ter:
+```html
+<img src="img/notebook.jpg" alt="Notebook">
+```
+E se o JS está em `js/script.js`:
+```html
+<script src="js/script.js"></script>
+```
+Só ajustar os caminhos, sem mover nada.
+
+---
+
+## Etapa 4 — Trocar flex por grid responsivo
+
+Substituir no `style.css` a regra da classe `.produtos`:
+
+```css
+.produtos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 2rem;
+}
+```
+
+O `auto-fill` com `minmax(200px, 1fr)` faz o grid ser automaticamente responsivo — quando a tela diminui, as colunas "quebram" para a linha de baixo.
+
+---
+
+## Etapa 5 — Criar styleCarrinho.css e vincular ao carrinho.html
+
+Criar o arquivo `css/styleCarrinho.css` com:
+
+```css
+.carrinho-itens {
+    padding: 2rem;
+}
+
+.carrinho-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.carrinho-item img {
+    width: 50px;
+    height: 50px;
+    margin-right: 1rem;
+}
+
+.carrinho-item-detalhes {
+    flex: 1;
+}
+
+.carrinho-item-detalhes h3 {
+    margin: 0;
+}
+
+.carrinho-item-detalhes p {
+    margin: 0.5rem 0;
+}
+
+.carrinho-item button {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.carrinho-item button:hover {
+    background-color: #cc0000;
+}
+
+.carrinho-total {
+    text-align: right;
+    margin-top: 2rem;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1rem;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+```
+
+No `<head>` do `carrinho.html`, adicionar:
+```html
+<link rel="stylesheet" href="css/styleCarrinho.css">
+```
+
+---
+
+## Etapa 6 — Botão escondido pelo rodapé fixo
+
+O problema é que o `footer` tem `position: fixed`, então ele fica sobre o conteúdo. A solução é adicionar `padding-bottom` ao conteúdo do carrinho para que o botão não fique atrás do rodapé:
+
+```css
+.carrinho-itens {
+    padding: 2rem;
+    padding-bottom: 5rem; /* espaço para o footer fixo não cobrir o botão */
+}
+```
+
+---
+
+## Etapa 7 — Sinalizar promoção nos produtos notebook e tablet
+
+No HTML, adicionar uma tag de promoção dentro do `<article>` desses produtos:
+
+```html
+<span class="promocao">🔥 Em Promoção!</span>
+```
+
+E no CSS:
+```css
+.promocao {
+    background-color: #ff6600;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+```
+
+---
+
+## Etapa 8 — Formulário de pagamento no carrinho.html
+
+Adicionar no `carrinho.html`:
+
+```html
+<section class="formulario-pagamento">
+    <h2>Pagamento com Cartão</h2>
+
+    <label for="bandeira">Bandeira do Cartão:</label>
+    <select id="bandeira" name="bandeira">
+        <option value="visa">Visa</option>
+        <option value="mastercard">Mastercard</option>
+        <option value="elo">Elo</option>
+    </select>
+
+    <label for="titular">Nome do Titular:</label>
+    <input type="text" id="titular" name="titular" placeholder="Nome como no cartão">
+
+    <label for="numero">Número do Cartão:</label>
+    <input type="text" id="numero" name="numero" placeholder="0000 0000 0000 0000">
+
+    <label for="validade">Data de Validade:</label>
+    <input type="month" id="validade" name="validade">
+
+    <label for="cvv">CVV:</label>
+    <input type="password" id="cvv" name="cvv" placeholder="***">
+
+    <button type="button">Finalizar Pagamento</button>
+</section>
+```
+
+> Note: a prova pede `<input type="password">` para o CVV (campo protegido).
+
+---
+
+## Etapa 9 — Metodologia BEM
+
+BEM organiza os nomes de classes assim: `bloco__elemento--modificador`.
+
+**Exemplo de conversão:**
+
+| Antes | Depois (BEM) |
+|---|---|
+| `.produto-card` | `.produto` |
+| `.produto-card img` | `.produto__imagem` |
+| `.produto-card h2` | `.produto__titulo` |
+| `.produto-card button` | `.produto__botao` |
+| `.produto-card button:hover` | `.produto__botao--hover` |
+| `.carrinho-item` | `.carrinho__item` |
+| `.carrinho-item img` | `.carrinho__item-imagem` |
+| `.carrinho-total` | `.carrinho__total` |
+
+No HTML você troca as classes dos elementos para os novos nomes BEM, e no CSS atualiza os seletores correspondentemente.
+
+---
+
+Se quiser, posso montar o projeto completo em arquivos para baixar, ou aprofundar em alguma etapa específica!
